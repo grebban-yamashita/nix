@@ -33,22 +33,6 @@
         "type": "github"
       }
     },
-    "catppuccin-wezterm": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1681259790,
-        "narHash": "sha256-McSWoZaJeK+oqdK/0vjiRxZGuLBpEB10Zg4+7p5dIGY=",
-        "owner": "catppuccin",
-        "repo": "wezterm",
-        "rev": "b1a81bae74d66eaae16457f2d8f151b5bd4fe5da",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "wezterm",
-        "type": "github"
-      }
-    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -542,7 +526,6 @@
     "root": {
       "inputs": {
         "catppuccin-helix": "catppuccin-helix",
-        "catppuccin-wezterm": "catppuccin-wezterm",
         "crane": "crane",
         "determinate": "determinate",
         "flake-compat": "flake-compat_2",
@@ -550,8 +533,7 @@
         "helix-master": "helix-master",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
-        "nix-homebrew": "nix-homebrew",
-        "wezterm": "wezterm"
+        "nix-homebrew": "nix-homebrew"
       }
     },
     "rust-overlay": {
@@ -606,25 +588,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "wezterm": {
-      "flake": false,
-      "locked": {
-        "dir": "nix",
-        "lastModified": 1722914277,
-        "narHash": "sha256-P7XWuTTj6VXxKTekAjC2ZF+fLZjNH/CsWb9CHLXakIs=",
-        "owner": "notohh",
-        "repo": "wezterm",
-        "rev": "e7ac13d03dc14967e705f7e2a5f1e3ce48759a68",
-        "type": "github"
-      },
-      "original": {
-        "dir": "nix",
-        "owner": "notohh",
-        "ref": "nix-add-overlay",
-        "repo": "wezterm",
         "type": "github"
       }
     }

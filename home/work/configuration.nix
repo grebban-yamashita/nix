@@ -10,7 +10,7 @@
 
   system.defaults.dock.persistent-apps = [
     "/Applications/Safari.app"
-    "/Users/work/Applications/Home Manager Apps/WezTerm.app"
+    "/Users/work/Applications/Home Manager Apps/kitty.app"
     "/Users/work/Applications/Home Manager Apps/TablePlus.app"
   ];
 

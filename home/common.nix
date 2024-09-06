@@ -106,6 +106,10 @@
             command = "php";
             args = ["./vendor/bin/psalm-language-server"];
           };
+          gdscript-lsp = {
+            command = "nc";
+            args = ["127.0.0.1" "6005"];
+          };
         };
         language = [
           {
@@ -133,6 +137,10 @@
             name = "nix";
             language-servers = ["alejandra"];
           }
+          {
+            name = "gscript";
+            language-servers = ["gdscript-lsp"];
+          }
         ];
       };
     };
@@ -150,20 +158,10 @@
       '';
     };
 
-    wezterm = {
+    kitty = {
       enable = true;
-      extraConfig = ''
-      return {
-        keys = {
-          { key = "UpArrow",   mods = "SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
-          { key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollToPrompt(1) },
-        },
-        font = wezterm.font("JetBrains Mono"),
-        hide_tab_bar_if_only_one_tab = true,
-        color_scheme = "Catppuccin Latte",
-      }
-      '';
-      enableZshIntegration = true;
+      font.name = "JetBrains Mono";
+      theme = "Catppuccin-Latte";
     };
 
     zsh.enable = true;

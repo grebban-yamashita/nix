@@ -20,11 +20,6 @@
 
   inputs.catppuccin-helix.url = "github:catppuccin/helix";
   inputs.catppuccin-helix.flake = false;
-  inputs.catppuccin-wezterm.url = "github:catppuccin/wezterm";
-  inputs.catppuccin-wezterm.flake = false;
-
-  inputs.wezterm.flake = false;
-  inputs.wezterm.url = "github:notohh/wezterm?dir=nix&ref=nix-add-overlay";
 
   inputs.crane.inputs.nixpkgs.follows = "determinate";
   inputs.crane.url = "github:ipetkov/crane";
