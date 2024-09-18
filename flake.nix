@@ -13,10 +13,10 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "determinate";
 
-  inputs.helix-master.inputs.crane.follows = "crane";
-  inputs.helix-master.inputs.flake-utils.follows = "flake-utils";
-  inputs.helix-master.inputs.nixpkgs.follows = "determinate";
-  inputs.helix-master.url = "github:helix-editor/helix";
+  inputs.helix.inputs.crane.follows = "crane";
+  inputs.helix.inputs.flake-utils.follows = "flake-utils";
+  inputs.helix.inputs.nixpkgs.follows = "determinate";
+  inputs.helix.url = "github:helix-editor/helix/master";
 
   inputs.catppuccin-helix.url = "github:catppuccin/helix";
   inputs.catppuccin-helix.flake = false;
@@ -27,21 +27,22 @@
 	inputs.devenv.url = "github:cachix/devenv";
 
 	nixConfig = {
-    extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
-    extra-substituters = "https://devenv.cachix.org";
+    extra-trusted-public-keys = [ "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" ];
+    extra-substituters = [ "https://devenv.cachix.org" ];
   };
 
-  outputs = { determinate, nix-darwin, home-manager, nix-homebrew, helix-master, catppuccin-helix, devenv, ... }: {
+  outputs = inputs@{ determinate, nix-darwin, home-manager, nix-homebrew, ... }: {
     darwinConfigurations = let
 			makeConfig = name: modules: nix-darwin.lib.darwinSystem {
 			  modules = [
 					determinate.darwinModules.default
 					./configuration.nix
 					./home/${name}/configuration.nix
+
 					home-manager.darwinModules.home-manager {
 						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
-						home-manager.extraSpecialArgs = { inherit helix-master catppuccin-helix determinate devenv; };
+						home-manager.extraSpecialArgs = { inherit inputs; };
 						home-manager.users = {
 							${name} = import ./home/${name}/home.nix;
 						};

@@ -1,4 +1,10 @@
-{ config, pkgs, name, ... }:
+{ config
+, pkgs
+, name
+, devenv
+, inputs
+, ...
+}:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -47,8 +53,7 @@
   services.nix-daemon.enable = true;
 
   nix = {
-    # package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes";    
+    extraOptions = "experimental-features = nix-command flakes";
     settings = {
       trusted-users = [
         "root"

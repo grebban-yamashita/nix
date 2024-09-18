@@ -505,7 +505,7 @@
         "type": "github"
       }
     },
-    "helix-master": {
+    "helix": {
       "inputs": {
         "crane": [
           "crane"
@@ -519,15 +519,16 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1726540450,
-        "narHash": "sha256-ocYV5TFmNS6Osfc8Oumpi7AKEbTHzW9ztkIhHcfR8+c=",
+        "lastModified": 1726708551,
+        "narHash": "sha256-2mFUjYNMPftdhR8DNCCsrV6edCOx/bTzlEE3w9gmK8Q=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "84fbadbdde255d87e6e04141ccd2d75f4e86edf2",
+        "rev": "9f93de5a4b2b52a1a153f4ea5eacfc1a63600496",
         "type": "github"
       },
       "original": {
         "owner": "helix-editor",
+        "ref": "master",
         "repo": "helix",
         "type": "github"
       }
@@ -1141,7 +1142,7 @@
         "devenv": "devenv",
         "flake-compat": "flake-compat_4",
         "flake-utils": "flake-utils_3",
-        "helix-master": "helix-master",
+        "helix": "helix",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew"
@@ -1150,11 +1151,11 @@
     "rust-overlay": {
       "inputs": {
         "flake-utils": [
-          "helix-master",
+          "helix",
           "flake-utils"
         ],
         "nixpkgs": [
-          "helix-master",
+          "helix",
           "nixpkgs"
         ]
       },

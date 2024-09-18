@@ -2,6 +2,7 @@
   extensions,
   lib, 
   pkgs,
+  inputs,
   ... 
 }: 
 {
@@ -12,11 +13,14 @@
     bun
     devenv
     fd
-    nodePackages.intelephense
     nodejs
     rectangle
+    php83
+    # php83Packages.composer
+    nodePackages.intelephense
     sensible-side-buttons
     tableplus
     vscode-extensions.xdebug.php-debug
+    vscode-extensions.devsense.profiler-php-vscode
   ];
 }

@@ -5,22 +5,23 @@
 }: {
   programs.helix = {
     enable = true;
-	package = helix-master.packages.${pkgs.system}.default.overrideAttrs (old: {
-	makeWrapperArgs = with pkgs;
-	  old.makeWrapperArgs
-	  or []
-	  ++ [
-	    "--suffix"
-	    "PATH"
-	    ":"
-	    (lib.makeBinPath [
-	      clang-tools
-	      marksman
-	      nodePackages.vscode-langservers-extracted
-	      shellcheck
-	    ])
-	  ];
-	});
+    package = helix-master.packages.${pkgs.system}.default.overrideAttrs (old: {
+      makeWrapperArgs = with pkgs;
+        old.makeWrapperArgs
+        or []
+        ++ [
+          "--suffix"
+          "PATH"
+          ":"
+          (lib.makeBinPath [
+            clang-tools
+            marksman
+            nodePackages.vscode-langservers-extracted
+            shellcheck
+            php83Packages.psalm
+          ])
+        ];
+    });
       settings = {
         theme = "catppuccin_latte";
 
@@ -64,7 +65,7 @@
           {
             name = "xdebug";
             command = "node";
-            args = ["${pkgs.vscode-extensions.xdebug.php-debug}/out/phpDebug.js"];
+            args = ["${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js"];
             transport = "tcp";
             port-arg = "--server={}";
           }
@@ -72,7 +73,7 @@
         language-server = {
           psalm = {
             command = "php";
-            args = ["./vendor/bin/psalm-language-server"];
+            args = ["${pkgs.php83Packages.psalm}/bin/psalm-language-server"];
           };
           gdscript-lsp = {
             command = "nc";
@@ -101,10 +102,10 @@
               }];
             };
           }
-          {
-            name = "nix";
-            language-servers = ["alejandra"];
-          }
+          # {
+          #   name = "nix";
+          #   language-servers = ["alejandra"];
+          # }
           {
             name = "gdscript";
             language-servers = ["gdscript-lsp"];
