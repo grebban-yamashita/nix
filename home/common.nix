@@ -8,10 +8,14 @@
   nixpkgs,
   catppuccin-helix,
   runCommand,
+  inputs,
   ... 
 }: 
 
 {
+  imports = [
+    ./helix
+  ];
   programs = {
     direnv.enable = true;
 
@@ -52,97 +56,6 @@
 
     helix = {
       enable = true;
-      package = pkgs.helix;
-      settings = {
-        theme = "catppuccin_latte";
-
-        editor = {
-          color-modes = true;
-          bufferline = "multiple";
-          completion-trigger-len = 3;
-          line-number = "relative";
-          indent-guides.render = true;
-          indent-guides.character = "┊";
-
-          cursor-shape = {
-            insert = "bar";
-            normal = "block";
-            select = "underline";
-          };
-
-          whitespace.render = {
-            space = "all";
-            tab = "all";
-
-            nbsp = "none";
-            nnbsp = "none";
-            newline = "none";
-          };
-        };
-
-        keys = {
-          normal = {
-            space = {
-              e = ":write";
-              q = ":quit";
-              space = "goto_last_accessed_file";
-            };
-          };
-        };
-      };
-
-      languages = {
-        debugger = [
-          {
-            name = "xdebug";
-            command = "node";
-            args = ["${pkgs.vscode-extensions.xdebug.php-debug}/out/phpDebug.js"];
-            transport = "tcp";
-            port-arg = "--server={}";
-          }
-        ];
-        language-server = {
-          psalm = {
-            command = "php";
-            args = ["./vendor/bin/psalm-language-server"];
-          };
-          gdscript-lsp = {
-            command = "nc";
-            args = ["127.0.0.1" "6005"];
-          };
-        };
-        language = [
-          {
-            name = "php";
-            indent = {
-              tab-width = 4;
-              unit = "    ";
-            };
-            language-servers = ["intelephense" "psalm"];
-            debugger = {
-              name = "xdebug";
-              command = "node";
-              args = ["${pkgs.vscode-extensions.xdebug.php-debug}/out/phpDebug.js"];
-              transport = "tcp";
-              port-arg = "--server={}";
-              templates = [{
-                name = "listen";
-                request = "launch";
-                completion = [ { name = "binary"; completion = "filename"; } ];
-                args = { log = true; };
-              }];
-            };
-          }
-          {
-            name = "nix";
-            language-servers = ["alejandra"];
-          }
-          {
-            name = "gscript";
-            language-servers = ["gdscript-lsp"];
-          }
-        ];
-      };
     };
 
     ripgrep = {

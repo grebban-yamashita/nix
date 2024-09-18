@@ -95,6 +95,8 @@
         ActuationStrength = 0; # silent clicking
         FirstClickThreshold = 0; # light clicking
         SecondClickThreshold = 0; # light force touch
+        Clicking = true;
+        TrackpadRightClick = true;
       };
     };
 

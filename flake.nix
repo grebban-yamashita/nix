@@ -24,7 +24,14 @@
   inputs.crane.inputs.nixpkgs.follows = "determinate";
   inputs.crane.url = "github:ipetkov/crane";
 
-  outputs = { determinate, nix-darwin, home-manager, nix-homebrew, helix-master, catppuccin-helix, ... }: {
+	inputs.devenv.url = "github:cachix/devenv";
+
+	nixConfig = {
+    extra-trusted-public-keys = "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=";
+    extra-substituters = "https://devenv.cachix.org";
+  };
+
+  outputs = { determinate, nix-darwin, home-manager, nix-homebrew, helix-master, catppuccin-helix, devenv, ... }: {
     darwinConfigurations = let
 			makeConfig = name: modules: nix-darwin.lib.darwinSystem {
 			  modules = [
@@ -34,7 +41,7 @@
 					home-manager.darwinModules.home-manager {
 						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
-						home-manager.extraSpecialArgs = { inherit helix-master catppuccin-helix determinate; };
+						home-manager.extraSpecialArgs = { inherit helix-master catppuccin-helix determinate devenv; };
 						home-manager.users = {
 							${name} = import ./home/${name}/home.nix;
 						};
