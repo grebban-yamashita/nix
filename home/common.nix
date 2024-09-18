@@ -13,9 +13,6 @@
 }: 
 
 {
-  imports = [
-    ./helix
-  ];
   programs = {
     direnv.enable = true;
 
