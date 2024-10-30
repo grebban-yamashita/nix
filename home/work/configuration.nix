@@ -21,6 +21,7 @@
     "firefox"
     "rapidapi"
     "slack"
+    "dbngin"
     "unclack"
     "sublime-merge@dev"
   ];
