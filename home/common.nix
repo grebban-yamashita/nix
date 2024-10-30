@@ -32,6 +32,7 @@ in
 
     jujutsu = {
       enable = true;
+      # package = inputs.jujutsu.packages.aarch64-darwin.jj;
       settings = {
         ui = {
           editor = "hx";
@@ -55,25 +56,30 @@ in
 
     helix = {
       enable = true;
-      package = pkgs.helix.overrideAttrs (old: {
-        makeWrapper = with pkgs;
-        old.makeWrapperArgs
-        or []
-        ++ [
-          "--suffix"
-          "PATH"
-          ":"
-          (lib.makeBinPath [
-            marksman
-            nodePackages.vscode-langservers-extracted
-            nodePackages.intelephense
-            php83
-            php83Packages.composer
-            vscode-extensions.xdebug.php-debug
-            vscode-extensions.devsense.profiler-php-vscode
-          ])
-        ];
-      });
+      # package = inputs.helix.packages.aarch64-darwin;
+      # package = inputs.helix.packages.aarch64-darwin.helix.overrideAttrs (old: {
+      #   makeWrapper = with pkgs;
+      #   old.makeWrapperArgs
+      #   or []
+      #   ++ [
+      #     "--suffix"
+      #     "PATH"
+      #     ":"
+      #     (lib.makeBinPath [
+      #       marksman
+      #       nodePackages.vscode-langservers-extracted
+      #       nodePackages.intelephense
+      #       php83
+      #       php83Extensions.dom
+      #       php83Extensions.filter
+      #       php83Extensions.simplexml
+      #       php83Extensions.tokenizer
+      #       php83Packages.composer
+      #       vscode-extensions.xdebug.php-debug
+      #       vscode-extensions.devsense.profiler-php-vscode
+      #     ])
+      #   ];
+      # });
       settings = {
         theme = "catppuccin_latte";
 
@@ -183,7 +189,7 @@ in
     kitty = {
       enable = true;
       font.name = "JetBrains Mono";
-      theme = "Catppuccin-Latte";
+      themeFile = "Catppuccin-Latte";
     };
 
     zsh.enable = true;

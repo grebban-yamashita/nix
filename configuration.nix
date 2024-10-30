@@ -36,6 +36,9 @@
       EDITOR = "hx";
       VISUAL = "hx";
     };
+    shellAliases = {
+      resolve = "seq $(jj resolve --list | grep -c .) | xargs -I{} jj resolve";
+    };
   };
 
   homebrew = {                            # Declare Homebrew using Nix-Darwin

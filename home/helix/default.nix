@@ -18,10 +18,16 @@
             marksman
             nodePackages.vscode-langservers-extracted
             shellcheck
+            php83
+            php83Extensions.dom
+            php83Extensions.filter
+            php83Extensions.simplexml
+            php83Extensions.tokenizer
             php83Packages.psalm
           ])
         ];
     });
+    # Psalm requires the following PHP extensions to be installed: dom, filter, simplexml, tokenizer.
       settings = {
         theme = "catppuccin_latte";
 
@@ -72,7 +78,7 @@
         ];
         language-server = {
           psalm = {
-            command = "php";
+            command = "${pkgs.php83}/bin/php";
             args = ["${pkgs.php83Packages.psalm}/bin/psalm-language-server"];
           };
           gdscript-lsp = {
