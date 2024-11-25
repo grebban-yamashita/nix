@@ -89,6 +89,7 @@ in
     tableplus
     vscode-extensions.devsense.profiler-php-vscode
     vscode-extensions.xdebug.php-debug
+    zigpkgs."master"
     # zls
   ];
 
