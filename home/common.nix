@@ -155,6 +155,9 @@
       enable = true;
       font.name = "JetBrains Mono";
       themeFile = "Catppuccin-Latte";
+      settings = {
+        macos_option_as_alt = "left";
+      };
     };
 
     zsh.enable = true;
