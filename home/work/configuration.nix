@@ -17,12 +17,14 @@
   homebrew.casks = [
     "1password"
     "asana"
+    "background-music"
+    "betterdisplay"
+    "dbngin"
     "docker"
     "firefox"
+    "sublime-merge@dev"
     "rapidapi"
     "slack"
-    "dbngin"
     "unclack"
-    "sublime-merge@dev"
   ];
 }

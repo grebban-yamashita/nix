@@ -28,18 +28,25 @@
 
 	inputs.nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
-  inputs.jj.url = "github:martinvonz/jj";
-  inputs.jj.inputs.nixpkgs.follows = "determinate";
+  inputs.jujutsu.url = "github:martinvonz/jj/main";
+  inputs.jujutsu.inputs.nixpkgs.follows = "determinate";
 
 	nixConfig = {
     extra-trusted-public-keys = [ "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" ];
     extra-substituters = [ "https://devenv.cachix.org" ];
   };
 
-  outputs = inputs@{ determinate, nix-darwin, home-manager, nix-homebrew, ... }: {
+	# inputs.nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+  outputs = { determinate, nix-darwin, home-manager, nix-homebrew, ... }@inputs: let
+		overlays = [
+			inputs.jujutsu.overlays.default
+		];
+	in {
     darwinConfigurations = let
 			makeConfig = name: modules: nix-darwin.lib.darwinSystem {
 			  modules = [
+					{ nixpkgs.overlays = overlays; }
 					determinate.darwinModules.default
 					./configuration.nix
 					./home/${name}/configuration.nix
@@ -47,7 +54,7 @@
 					home-manager.darwinModules.home-manager {
 						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
-						home-manager.extraSpecialArgs = { inherit inputs; };
+						home-manager.extraSpecialArgs = { inherit inputs ; };
 						home-manager.users = {
 							${name} = import ./home/${name}/home.nix;
 						};
