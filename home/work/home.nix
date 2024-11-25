@@ -78,7 +78,6 @@ in
     tree
     
     devenv
-    # inputs.packages.jj.aarch64-darwin.jujutsu
     inputs.nix-vscode-extensions.extensions.aarch64-darwin.open-vsx.getpsalm.psalm-vscode-plugin
     nodePackages.intelephense
     nodejs
