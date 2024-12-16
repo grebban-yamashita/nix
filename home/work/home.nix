@@ -72,6 +72,8 @@ in
     fd
     fzf
     htop
+    httpie
+    jsonfmt
     jq
     ripgrep
     sentry-cli

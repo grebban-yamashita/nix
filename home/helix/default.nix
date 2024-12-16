@@ -53,6 +53,12 @@
             nnbsp = "none";
             newline = "none";
           };
+
+          sticky-context = {
+            enable = true;
+            indicator = true;
+            max-lines = 10;
+          };
         };
 
         keys = {

@@ -10,7 +10,7 @@
 
   system.defaults.dock.persistent-apps = [
     "/Applications/Safari.app"
-    "/Users/work/Applications/Home Manager Apps/kitty.app"
+    "/Applications/Ghostty.app"
     "/Users/work/Applications/Home Manager Apps/TablePlus.app"
   ];
 
@@ -22,6 +22,7 @@
     "dbngin"
     "docker"
     "firefox"
+    "ghostty"
     "sublime-merge@dev"
     "rapidapi"
     "slack"

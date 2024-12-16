@@ -34,11 +34,15 @@
           auto-local-branch = true;
         };
         template-aliases = {
-          "format_short_signature(signature)" = "signature.username()";
+          "format_short_signature(signature)" = "signature.email().local()";
+          "format_timestamp(timestamp)" = "timestamp.ago()";
         };
         user = {
           name = "grebban-yamashita";
           email = "linus@grebban.com";
+        };
+        aliases = {
+          sl = ["log" "-r" "trunk():: ~ (remote_bookmarks() ~ bookmarks()) | (@..bookmarks())" "--no-pager" "--reversed"];
         };
       };
     };
@@ -151,20 +155,20 @@
       '';
     };
 
-    kitty = {
-      enable = true;
-      font.name = "JetBrains Mono";
-      themeFile = "Catppuccin-Latte";
-      settings = {
-        macos_option_as_alt = "left";
-      };
-    };
-
     zsh.enable = true;
   };
 
   home = {
-    file.".config/helix/themes".source = "${inputs.catppuccin-helix}/themes/default";
-    stateVersion = "24.05";
+    file = {
+      ".config/helix/themes".source = "${inputs.catppuccin-helix}/themes/default";
+      ".config/ghostty/config".text = ''
+        theme = "dark:catppuccin-frappe,light:catppuccin-latte"
+        font-family = "JetBrains Mono"
+        font-size = 8
+        macos-option-as-alt = true
+        cursor-style = block
+      '';
+    };
+    stateVersion = "24.11";
   };
 }
