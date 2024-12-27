@@ -164,7 +164,7 @@
       ".config/ghostty/config".text = ''
         theme = "dark:catppuccin-frappe,light:catppuccin-latte"
         font-family = "JetBrains Mono"
-        font-size = 8
+        font-size = 11
         macos-option-as-alt = true
         cursor-style = block
       '';
