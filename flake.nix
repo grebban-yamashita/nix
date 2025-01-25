@@ -14,7 +14,7 @@
 
   inputs.helix.inputs.crane.follows = "crane";
   inputs.helix.inputs.flake-utils.follows = "flake-utils";
-  inputs.helix.url = "github:SoraTenshi/helix/sticky-context";
+  inputs.helix.url = "github:helix-editor/helix";
 
   inputs.catppuccin-helix.url = "github:catppuccin/helix";
   inputs.catppuccin-helix.flake = false;

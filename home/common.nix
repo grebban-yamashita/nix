@@ -53,17 +53,22 @@
         theme = "catppuccin_latte";
 
         editor = {
-          color-modes = true;
           bufferline = "multiple";
+          color-modes = true;
           completion-trigger-len = 3;
-          line-number = "relative";
-          indent-guides.render = true;
+          end-of-line-diagnostics = "hint";
           indent-guides.character = "┊";
+          indent-guides.render = true;
+          line-number = "relative";
 
           cursor-shape = {
             insert = "bar";
             normal = "block";
             select = "underline";
+          };
+
+          inline-diagnostics = {
+            cursor-line = "error";
           };
 
           whitespace.render = {

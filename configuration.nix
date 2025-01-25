@@ -10,15 +10,9 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
 
-  fonts = {                               # Fonts
-    packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-        ];
-      })
-    ];
-  };
+  fonts.packages = [
+    pkgs.nerd-fonts.jetbrains-mono
+  ];
 
   environment = {
     # etc."hosts" = {          # PHP is _extremely slow_ with executing commands without this

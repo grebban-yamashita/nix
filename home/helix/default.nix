@@ -73,15 +73,6 @@
       };
 
       languages = {
-        debugger = [
-          {
-            name = "xdebug";
-            command = "node";
-            args = ["${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js"];
-            transport = "tcp";
-            port-arg = "--server={}";
-          }
-        ];
         language-server = {
           psalm = {
             command = "${pkgs.php83}/bin/php";
@@ -101,23 +92,17 @@
             };
             language-servers = ["intelephense" "psalm"];
             debugger = {
-              name = "xdebug";
+              name = "vscode-php-debug";
               command = "node";
-              args = ["${pkgs.vscode-extensions.xdebug.php-debug}/out/phpDebug.js"];
-              transport = "tcp";
-              port-arg = "--server={}";
+              args = ["${pkgs.vscode-extensions.xdebug.php-debug}/share/vscode/extensions/xdebug.php-debug/out/phpDebug.js"];
               templates = [{
-                name = "listen";
+                name = "Listen for XDebug";
                 request = "launch";
-                completion = [ { name = "binary"; completion = "filename"; } ];
-                args = { log = true; };
+                completion = "ignored";
+                args = {};
               }];
-            };
+            }
           }
-          # {
-          #   name = "nix";
-          #   language-servers = ["alejandra"];
-          # }
           {
             name = "gdscript";
             language-servers = ["gdscript-lsp"];

@@ -58,7 +58,12 @@ let
       zlib
     ];
     extraConfig = ''
-      xdebug.mode = coverage
+      xdebug.collect_params=On
+      xdebug.connect_timeout_ms=200
+      xdebug.discover_client_host=Off
+      xdebug.idekey="vscode"
+      xdebug.mode=debug
+      xdebug.start_with_request=yes
     '';
   };
 in
@@ -71,6 +76,7 @@ in
     eza
     fd
     fzf
+    gh
     htop
     httpie
     jsonfmt
@@ -86,18 +92,19 @@ in
     myPhp
     php83Packages.composer
 
+    colima
+    lima
     rectangle
     sensible-side-buttons
     tableplus
     vscode-extensions.devsense.profiler-php-vscode
     vscode-extensions.xdebug.php-debug
+    vscode-langservers-extracted
     zigpkgs."master"
-    # zls
   ];
 
   home.file.".php.ini".text = ''
     [Xdebug]
     zend_extension="xdebug.so"
-    xdebug.mode=coverage
   '';
 }
