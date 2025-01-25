@@ -31,7 +31,7 @@
         };
         snapshot.max-new-file-size = "10MiB";
         git = {
-          auto-local-branch = true;
+          auto-local-bookmark = true;
         };
         template-aliases = {
           "format_short_signature(signature)" = "signature.email().local()";
