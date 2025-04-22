@@ -45,7 +45,6 @@
 			makeConfig = name: modules: nix-darwin.lib.darwinSystem {
 			  modules = [
 					{ nixpkgs.overlays = overlays; }
-					determinate.darwinModules.default
 					./configuration.nix
 					./home/${name}/configuration.nix
 
