@@ -10,10 +10,6 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnsupportedSystem = true;
 
-  fonts.packages = [
-    pkgs.nerd-fonts.jetbrains-mono
-  ];
-
   environment = {
     # etc."hosts" = {          # PHP is _extremely slow_ with executing commands without this
     #   copy = true;
@@ -38,18 +34,16 @@
   homebrew = {                            # Declare Homebrew using Nix-Darwin
     enable = true;
     onActivation = {
-      autoUpdate = true;                 # Auto update packages
+      autoUpdate = false;                 # Auto update packages
       upgrade = false;
       cleanup = "zap";                    # Uninstall not listed packages and casks
     };
   }; 
 
-  security.pam.enableSudoTouchIdAuth = true;
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   nix = {
+    enable = false;
     extraOptions = "experimental-features = nix-command flakes";
     settings = {
       trusted-users = [

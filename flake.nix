@@ -3,14 +3,14 @@
 
   inputs.nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-  inputs.nix-darwin.url = "github:LnL7/nix-darwin";
+  inputs.nix-darwin.url = "github:lnl7/nix-darwin/nix-darwin-24.11";
 
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
   inputs.flake-compat.flake = false;
   inputs.flake-compat.url = "github:edolstra/flake-compat";
 
-  inputs.home-manager.url = "github:nix-community/home-manager";
+  inputs.home-manager.url = "github:nix-community/home-manager/release-24.11";
 
   inputs.helix.inputs.crane.follows = "crane";
   inputs.helix.inputs.flake-utils.follows = "flake-utils";

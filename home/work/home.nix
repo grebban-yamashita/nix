@@ -101,6 +101,7 @@ in
     vscode-extensions.xdebug.php-debug
     vscode-langservers-extracted
     zigpkgs."master"
+    zls
   ];
 
   home.file.".php.ini".text = ''
