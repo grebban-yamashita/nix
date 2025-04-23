@@ -28,6 +28,17 @@
     };
     shellAliases = {
       resolve = "seq $(jj resolve --list | grep -c .) | xargs -I{} jj resolve";
+
+      jj-kebab = ''
+        jj-kebab() {
+          local rev="''${1:-@-}"
+          jj log -r "''${rev}" --no-graph -T "(description)" \
+            | sed 's|: |/|' \
+            | tr '[:upper:]' '[:lower:]' \
+            | tr ' ' '-'
+        }
+        jj-kebab
+      '';
     };
   };
 

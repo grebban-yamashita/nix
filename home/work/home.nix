@@ -79,8 +79,8 @@ in
     gh
     htop
     httpie
-    jsonfmt
     jq
+    jsonfmt
     ripgrep
     sentry-cli
     tree
@@ -107,5 +107,29 @@ in
   home.file.".php.ini".text = ''
     [Xdebug]
     zend_extension="xdebug.so"
+  '';
+
+  home.file.".gitconfig".text = ''
+    [includeIf "gitdir:~/Developer/"]
+        path = .grebban.gitconfig
+
+    [includeIf "gitdir:~/Developer/yamashita/"]
+        path = .yamashita.gitconfig
+  '';
+
+  home.file.".grebban.gitconfig".text = ''
+    [core]
+      sshCommand = "ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes"
+    [user]
+        name = grebban-yamashita
+        email = linus@grebban.com
+  '';
+
+  home.file.".yamashita.gitconfig".text = ''
+    [core]
+      sshCommand = "ssh -i ~/.ssh/id_ed25519_yamashita -o IdentitiesOnly=yes"
+    [user]
+      name = "山下"
+      email = git@yamashit.ax
   '';
 }
