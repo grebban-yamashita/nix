@@ -16,17 +16,13 @@
 
   homebrew.casks = [
     "1password"
-    "asana"
-    "betterdisplay"
     "dbngin"
     "docker"
     "firefox"
     "ghostty"
     "obsidian"
-    "rapidapi"
     "slack"
     "sublime-merge@dev"
     "unclack"
-    "whisky"
   ];
 }

@@ -12,13 +12,10 @@
 
   inputs.home-manager.url = "github:nix-community/home-manager/release-24.11";
 
-  inputs.helix.inputs.crane.follows = "crane";
-  inputs.helix.inputs.flake-utils.follows = "flake-utils";
-  inputs.helix.url = "github:helix-editor/helix";
+	inputs.helix.url = "github:helix-editor/helix";
 
   inputs.catppuccin-helix.url = "github:catppuccin/helix";
   inputs.catppuccin-helix.flake = false;
-
   inputs.crane.url = "github:ipetkov/crane";
 
 	inputs.devenv.url = "github:cachix/devenv";
@@ -37,7 +34,6 @@
   outputs = { determinate, nix-darwin, home-manager, nix-homebrew, ... }@inputs: let
 		overlays = [
 			inputs.jujutsu.overlays.default
-			inputs.helix.overlays.default
 			inputs.zig.overlays.default
 		];
 	in {
@@ -59,7 +55,7 @@
 					nix-homebrew.darwinModules.nix-homebrew
 					{
 						nix-homebrew = {
-							enable = true;
+							enable = false;
 							enableRosetta = true;
 							user = "${name}";
 						};

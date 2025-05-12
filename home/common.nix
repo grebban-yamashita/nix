@@ -26,16 +26,59 @@
       settings = {
         ui = {
           editor = "hx";
-          default-command = ["log" "-r" "::@"];
+          default-command = ["log-recent"];
           merge-editor = ["/opt/homebrew/bin/smerge" "mergetool" "$base" "$left" "$right" "-o" "$output"];
+        };
+        revset-aliases = {
+          "closest_bookmark(to)" = "heads(::to & bookmarks())";
+          "closest_pushable(to)" = "heads(::to & ~description(exact:'') & (~empty() | merges()))";
+          "recent()" = "committer_date(after:'3 months ago')";
         };
         snapshot.max-new-file-size = "10MiB";
         git = {
           auto-local-bookmark = true;
         };
         template-aliases = {
+          "format_short_change_id(id)" = "id.shortest()";
           "format_short_signature(signature)" = "signature.email().local()";
           "format_timestamp(timestamp)" = "timestamp.ago()";
+        };
+        templates = {
+          # "log" = ''
+          #   if(root,
+          #     format_root_commit(self),
+          #     label(if(current_working_copy, "working_copy"),
+          #       concat(
+          #         separate(" ",
+          #           format_short_change_id_with_hidden_and_divergent_info(self),
+          #           if(empty, label("empty", "(empty)")),
+          #           if(description,
+          #             description.first_line(),
+          #             label(if(empty, "empty"), description_placeholder),
+          #           ),
+          #           bookmarks,
+          #           tags,
+          #           working_copies,
+          #           if(git_head, label("git_head", "HEAD")),
+          #           if(conflict, label("conflict", "conflict")),
+          #           if(config("ui.show-cryptographic-signatures").as_boolean(),
+          #             format_short_cryptographic_signature(signature)),
+          #         ) ++ "\n",
+          #       ),
+          #     )
+          #   )
+          # '';
+          # "log_node" = ''
+          #   label("node",
+          #     coalesce(
+          #       if(!self, label("elided", "~")),
+          #       if(current_working_copy, label("working_copy", "@")),
+          #       if(conflict, label("conflict", "×")),
+          #       if(immutable, label("immutable", "*")),
+          #       label("normal", "·")
+          #     )
+          #   )
+          # '';
         };
         user = {
           name = "grebban-yamashita";
@@ -43,12 +86,15 @@
         };
         aliases = {
           sl = ["log" "-r" "trunk():: ~ (remote_bookmarks() ~ bookmarks()) | (@..bookmarks())" "--no-pager" "--reversed"];
+          log-recent = ["log" "-r" "::@ & recent()"];
+          tug = ["bookmark" "move" "--from" "closest_bookmark(@)" "--to" "closest_pushable(@)"];
         };
       };
     };
 
     helix = {
       enable = true;
+      package = inputs.helix.packages.${pkgs.system}.default;
       settings = {
         theme = "catppuccin_latte";
 
@@ -84,7 +130,7 @@
         keys = {
           normal = {
             space = {
-              e = ":write";
+              u = ":write";
               q = ":quit";
               space = "goto_last_accessed_file";
             };
@@ -133,6 +179,10 @@
                 args = { log = true; };
               }];
             };
+            formatter = {
+              command = "./vendor/bin/pint";
+              args = ["--stdin" "--stdin-filename %{buffer_name}"];
+            };
           }
           {
             name = "nix";
@@ -154,11 +204,23 @@
     ssh = {
       enable = true;
       extraConfig = ''
+        # Default GitHub (used for grebban-yamashita)
         Host github.com
-          AddKeysToAgent yes
-          UseKeychain yes
+          HostName github.com
+          User git
           IdentityFile ~/.ssh/id_ed25519
           IdentitiesOnly yes
+          UseKeychain yes
+          AddKeysToAgent yes
+
+        # Separate identity for yamashitax
+        Host github.com-yamashita
+          HostName github.com
+          User git
+          IdentityFile ~/.ssh/id_ed25519_yamashita
+          IdentitiesOnly yes
+          UseKeychain yes
+          AddKeysToAgent yes
       '';
     };
 
@@ -174,6 +236,12 @@
         font-size = 11
         macos-option-as-alt = true
         cursor-style = block
+      '';
+      ".config/direnv/direnvrc".text = ''
+        use_jj-yamashita() {
+          export JJ_USER="山下"
+          export JJ_EMAIL="git@yamashit.ax"
+        }
       '';
     };
     stateVersion = "24.11";

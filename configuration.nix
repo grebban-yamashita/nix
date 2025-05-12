@@ -21,7 +21,7 @@
     #     127.0.0.1       webdev.test
     #   '';
     # };
-    shells = with pkgs; [ zsh ];          # Default shell
+    shells = [ pkgs.zsh ];          # Default shell
     variables = {                         # System variables
       EDITOR = "hx";
       VISUAL = "hx";
@@ -43,7 +43,7 @@
   };
 
   homebrew = {                            # Declare Homebrew using Nix-Darwin
-    enable = true;
+    enable = false;
     onActivation = {
       autoUpdate = false;                 # Auto update packages
       upgrade = false;
@@ -111,7 +111,12 @@
   };
   
   # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;  # default shell on catalina
+  programs.zsh = {
+    enable = true;
+    promptInit = ''
+      export PROMPT="%n@workbook:%~ > "
+    '';
+  };  # default shell on catalina
 
   system.stateVersion = 4;
 }
