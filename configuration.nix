@@ -12,13 +12,8 @@
 
   environment = {
     # etc."hosts" = {          # PHP is _extremely slow_ with executing commands without this
-    #   copy = true;
+    #   # copy = true;
     #   text = ''
-    #     ::1             localhost
-    #     127.0.0.1       localhost
-    #     255.255.255.255 broadcasthost
-
-    #     127.0.0.1       webdev.test
     #   '';
     # };
     shells = [ pkgs.zsh ];          # Default shell
@@ -27,7 +22,8 @@
       VISUAL = "hx";
     };
     shellAliases = {
-      resolve = "seq $(jj resolve --list | grep -c .) | xargs -I{} jj resolve";
+      j = "jj";
+      jjj = "jj";
 
       jj-kebab = ''
         jj-kebab() {
@@ -43,13 +39,13 @@
   };
 
   homebrew = {                            # Declare Homebrew using Nix-Darwin
-    enable = false;
+    enable = true;
     onActivation = {
       autoUpdate = false;                 # Auto update packages
       upgrade = false;
       cleanup = "zap";                    # Uninstall not listed packages and casks
     };
-  }; 
+  };
 
   # security.pam.services.sudo_local.touchIdAuth = true;
 
@@ -115,6 +111,7 @@
     enable = true;
     promptInit = ''
       export PROMPT="%n@workbook:%~ > "
+      export PATH="$HOME/.local/bin:$PATH"
     '';
   };  # default shell on catalina
 

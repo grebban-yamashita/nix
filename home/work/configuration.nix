@@ -14,12 +14,18 @@
     "/Users/work/Applications/Home Manager Apps/TablePlus.app"
   ];
 
+  system.primaryUser = "work";
+
+  homebrew.brews = [
+    "openssl@3"
+  ];
+
   homebrew.casks = [
     "1password"
+    "cmux"
     "dbngin"
-    "docker"
     "firefox"
-    "ghostty"
+    "helium-browser"
     "obsidian"
     "slack"
     "sublime-merge@dev"

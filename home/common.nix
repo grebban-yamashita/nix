@@ -28,6 +28,8 @@
           editor = "hx";
           default-command = ["log-recent"];
           merge-editor = ["/opt/homebrew/bin/smerge" "mergetool" "$base" "$left" "$right" "-o" "$output"];
+          pager = "delta";
+          diff-formatter = ":git";
         };
         revset-aliases = {
           "closest_bookmark(to)" = "heads(::to & bookmarks())";
@@ -35,50 +37,11 @@
           "recent()" = "committer_date(after:'3 months ago')";
         };
         snapshot.max-new-file-size = "10MiB";
-        git = {
-          auto-local-bookmark = true;
-        };
+        remotes.origin.auto-track-bookmarks = "*";
         template-aliases = {
           "format_short_change_id(id)" = "id.shortest()";
           "format_short_signature(signature)" = "signature.email().local()";
           "format_timestamp(timestamp)" = "timestamp.ago()";
-        };
-        templates = {
-          # "log" = ''
-          #   if(root,
-          #     format_root_commit(self),
-          #     label(if(current_working_copy, "working_copy"),
-          #       concat(
-          #         separate(" ",
-          #           format_short_change_id_with_hidden_and_divergent_info(self),
-          #           if(empty, label("empty", "(empty)")),
-          #           if(description,
-          #             description.first_line(),
-          #             label(if(empty, "empty"), description_placeholder),
-          #           ),
-          #           bookmarks,
-          #           tags,
-          #           working_copies,
-          #           if(git_head, label("git_head", "HEAD")),
-          #           if(conflict, label("conflict", "conflict")),
-          #           if(config("ui.show-cryptographic-signatures").as_boolean(),
-          #             format_short_cryptographic_signature(signature)),
-          #         ) ++ "\n",
-          #       ),
-          #     )
-          #   )
-          # '';
-          # "log_node" = ''
-          #   label("node",
-          #     coalesce(
-          #       if(!self, label("elided", "~")),
-          #       if(current_working_copy, label("working_copy", "@")),
-          #       if(conflict, label("conflict", "×")),
-          #       if(immutable, label("immutable", "*")),
-          #       label("normal", "·")
-          #     )
-          #   )
-          # '';
         };
         user = {
           name = "grebban-yamashita";
@@ -88,6 +51,8 @@
           sl = ["log" "-r" "trunk():: ~ (remote_bookmarks() ~ bookmarks()) | (@..bookmarks())" "--no-pager" "--reversed"];
           log-recent = ["log" "-r" "::@ & recent()"];
           tug = ["bookmark" "move" "--from" "closest_bookmark(@)" "--to" "closest_pushable(@)"];
+          empty = ["log" "-r" "description(exact:'') & mine()"];
+          rebase-onto-next = ["rebase" "-s" "all:roots(next..mutable())" "-d" "next"];
         };
       };
     };
@@ -203,6 +168,11 @@
   
     ssh = {
       enable = true;
+      matchBlocks."*" = {
+        forwardAgent = true;
+        # add other defaults here
+      };
+      enableDefaultConfig = false;
       extraConfig = ''
         # Default GitHub (used for grebban-yamashita)
         Host github.com
@@ -231,7 +201,7 @@
     file = {
       ".config/helix/themes".source = "${inputs.catppuccin-helix}/themes/default";
       ".config/ghostty/config".text = ''
-        theme = "dark:catppuccin-frappe,light:catppuccin-latte"
+        theme = "dark:Catppuccin Frappe,light:Catppuccin Latte"
         font-family = "JetBrains Mono"
         font-size = 11
         macos-option-as-alt = true
