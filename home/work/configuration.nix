@@ -10,7 +10,7 @@
 
   system.defaults.dock.persistent-apps = [
     "/Applications/Safari.app"
-    "/Applications/Ghostty.app"
+    "/Applications/cmux.app"
     "/Users/work/Applications/Home Manager Apps/TablePlus.app"
   ];
 

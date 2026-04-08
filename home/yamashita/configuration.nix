@@ -15,6 +15,8 @@
   ];
 
   homebrew.casks = [
+    "cmux"
+    "helium-browser"
     "google-japanese-ime"
     "librewolf"
     "unclack"
