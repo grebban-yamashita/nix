@@ -29,12 +29,17 @@
 
 	inputs.ghostty.url = "github:ghostty-org/ghostty";
 
+	inputs.mattSkills = {
+		url = "github:mattpocock/skills";
+		flake = false;
+	};
+
 	nixConfig = {
     extra-trusted-public-keys = [ "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" ];
     extra-substituters = [ "https://devenv.cachix.org" ];
   };
 
-  outputs = { determinate, nix-darwin, home-manager, nix-homebrew, ... }@inputs: let
+  outputs = { determinate, nix-darwin, home-manager, nix-homebrew, mattSkills, ... }@inputs: let
 		overlays = [
 			inputs.jujutsu.overlays.default
 			inputs.zig.overlays.default
@@ -52,9 +57,24 @@
 		      	allowUnfree = true;
 		      };
 		    };
+
+		    ampSkills = pkgs.stdenvNoCC.mkDerivation {
+		    	name = "amp-skills";
+
+		    	src = mattSkills;
+
+		    	installPhase = ''
+		    		mkdir -p $out
+		    		cp -R skills/* $out/
+	    		'';
+		    };
 		  in
 		  nix-darwin.lib.darwinSystem {
 		  	inherit system pkgs;
+
+		  	specialArgs = {
+		  		inherit inputs ampSkills;
+		  	};
 
 			  modules = [
 					{ nixpkgs.overlays = overlays; }
@@ -64,7 +84,7 @@
 					home-manager.darwinModules.home-manager {
 						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
-						home-manager.extraSpecialArgs = { inherit inputs ; };
+						home-manager.extraSpecialArgs = { inherit inputs ampSkills; };
 						home-manager.users = {
 							${name} = import ./home/${name}/home.nix;
 						};
